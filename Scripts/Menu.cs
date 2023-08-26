@@ -2,6 +2,7 @@ using Godot;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 
 public partial class Menu : Node2D
@@ -87,22 +88,15 @@ public class Machmaking
         else if (VerifyScore > 7000 && VerifyScore < 10000) { GD.Print(VerifyScore); province = 5; }
         else if (VerifyScore > 10000) { GD.Print(VerifyScore); province = 6; }
 
+        GD.Print("-------------------------------------------------------");
+
         // Szerver lekerdezes
-        string serverquery = $"SELECT * FROM servers";
+        List<string> goodservers = new List<string>();
+        string serverquery = $"SELECT * FROM servers WHERE province='{province}'";
         MySqlCommand cmd = new MySqlCommand(serverquery, connection);
         reader = cmd.ExecuteReader();
-        reader.Read();
-        GD.Print("IP: " + reader["ip"] + " Current players: " + reader["currentplayers"] + " Max player: " + reader["maxplayer"] + " Province: " + reader["province"] + province);
-
-        // Province szerverek listazasa
-        List<string> provinceservers = new List<string>();
-        foreach (var item in Convert.ToString(reader["province"]))
-        {
-            if (item == province)
-            {
-                GD.Print(item);
-            }
-        }
+        while (reader.Read()) { goodservers.Add(reader["ip"] + ";" + reader["currentplayers"] + ";" + reader["maxplayer"] + ";" + reader["province"]); }
+        foreach (var item in goodservers) { GD.Print(item); }
         reader.Close();
         connection.Close();
     }
