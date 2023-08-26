@@ -1,6 +1,7 @@
 using Godot;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Reflection.PortableExecutable;
 
 public partial class Menu : Node2D
@@ -33,10 +34,12 @@ public partial class Menu : Node2D
 }
 public class Machmaking
 {
-    static string dbserver = "127.0.0.1";
-    static string database = "projectgame";
-    static string dbusername = "user";
-    static string dbpassword = "joWAyE";
+    public static int province = 0;
+
+    static string dbserver = "ptero02.adminom.hu";
+    static string database = "s4330_projectgame";
+    static string dbusername = "u4330_XuXcbj6mwi";
+    static string dbpassword = "A@oItlZZnE8=tlKSdyDo0S8Q";
     static MySqlDataReader reader;
     static MySqlConnection connection;
     static Machmaking()
@@ -77,19 +80,29 @@ public class Machmaking
     {
         // Score tartomany meghatarozas
         int VerifyScore = Convert.ToInt32(GetScore());
-        if (VerifyScore > 0 && VerifyScore < 1000) { GD.Print(VerifyScore + "Elso rank hely"); }
-        else if (VerifyScore > 1000 && VerifyScore < 3000) { GD.Print(VerifyScore + "Masodik rank hely"); }
-        else if (VerifyScore > 3000 && VerifyScore < 5000) { GD.Print(VerifyScore + "Harmadik rank hely"); }
-        else if (VerifyScore > 5000 && VerifyScore < 7000) { GD.Print(VerifyScore + "Negyedik rank hely"); }
-        else if (VerifyScore > 7000 && VerifyScore < 10000) { GD.Print(VerifyScore + "Otodik rank hely"); }
-        else if (VerifyScore > 10000) { GD.Print(VerifyScore + "Hatodik rank hely"); }
+        if (VerifyScore > 0 && VerifyScore < 1000) { GD.Print(VerifyScore); province = 1; }
+        else if (VerifyScore > 1000 && VerifyScore < 3000) { GD.Print(VerifyScore); province = 2; }
+        else if (VerifyScore > 3000 && VerifyScore < 5000) { GD.Print(VerifyScore); province = 3; }
+        else if (VerifyScore > 5000 && VerifyScore < 7000) { GD.Print(VerifyScore); province = 4; }
+        else if (VerifyScore > 7000 && VerifyScore < 10000) { GD.Print(VerifyScore); province = 5; }
+        else if (VerifyScore > 10000) { GD.Print(VerifyScore); province = 6; }
 
         // Szerver lekerdezes
         string serverquery = $"SELECT * FROM servers";
         MySqlCommand cmd = new MySqlCommand(serverquery, connection);
         reader = cmd.ExecuteReader();
         reader.Read();
-        GD.Print("IP: " + reader["ip"] + " Current players: " + reader["currentplayers"] + " Max player: " + reader["maxplayer"]);
+        GD.Print("IP: " + reader["ip"] + " Current players: " + reader["currentplayers"] + " Max player: " + reader["maxplayer"] + " Province: " + reader["province"] + province);
+
+        // Province szerverek listazasa
+        List<string> provinceservers = new List<string>();
+        foreach (var item in Convert.ToString(reader["province"]))
+        {
+            if (item == province)
+            {
+                GD.Print(item);
+            }
+        }
         reader.Close();
         connection.Close();
     }
