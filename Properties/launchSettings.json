@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProjectGame": {
+      "commandName": "Project",
+      "sqlDebugging": true
+    }
+  }
+}

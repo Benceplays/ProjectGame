@@ -6,12 +6,6 @@ using System.Reflection.PortableExecutable;
 public partial class Menu : Node2D
 {
     //valtozok
-    static string dbserver = "127.0.0.1";
-    static string database = "projectgame";
-    static string dbusername = "user";
-    static string dbpassword = "joWAyE";
-    static MySqlConnection conn;
-    static MySqlDataReader reader;
     bool SearchIsOn = false;
     double time = 0;
     double sec = 0;
@@ -23,7 +17,6 @@ public partial class Menu : Node2D
     public override void _Ready()
     {
         timeLabel = GetNode("PlayButton/TimeLabel") as Label;
-        new Machmaking();
     }
     public override void _Process(double delta)
     {
@@ -36,7 +29,7 @@ public partial class Menu : Node2D
             timeLabel.Text = $"{minute}:{second}";
         }
     }
-    public void ServerSearchButton() { SearchIsOn = true; }
+    public void ServerSearchButton() { SearchIsOn = true; new Machmaking(); }
 }
 public class Machmaking
 {
@@ -44,29 +37,60 @@ public class Machmaking
     static string database = "projectgame";
     static string dbusername = "user";
     static string dbpassword = "joWAyE";
-    static MySqlConnection conn;
     static MySqlDataReader reader;
+    static MySqlConnection connection;
     static Machmaking()
     {
-        GD.Print("asd");
         Connection();
     }
     public static void Connection()
     {
-        string constring = $"SERVER={dbserver};DATABASE={database};UID={dbusername};PASSWORD={dbpassword};";
-        Console.WriteLine("Elindult");
-        conn = new MySqlConnection(constring);
-        conn.Open();
+        string connectionString = $"Server={dbserver};Database={database};Uid={dbusername};Pwd={dbpassword};";
+        using (connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
+                GD.Print("Sikeres csatlakozas a MySQL szerverhez!");
+            }
+            catch (Exception ex)
+            {
+                GD.Print("Hiba tortent a csatlakozas soran: " + ex.Message);
+            }
+            ServerSearch();
+        }
+    }
+    // Score lekerdezes
+    public static int GetScore()
+    {
+        int score = 0;
+        string username = "Booby";
+        string userquery = $"SELECT * FROM users WHERE username='{username}'";
+        MySqlCommand cmd = new MySqlCommand(userquery, connection);
+        reader = cmd.ExecuteReader();
+        reader.Read();
+        score = Convert.ToInt32(reader["score"]);
+        reader.Close();
+        return score;
     }
     public static void ServerSearch()
     {
-        Connection();
-        string query = $"SELECT * FROM servers";
-        MySqlCommand cmd = new MySqlCommand(query, conn);
+        // Score tartomany meghatarozas
+        int VerifyScore = Convert.ToInt32(GetScore());
+        if (VerifyScore > 0 && VerifyScore < 1000) { GD.Print(VerifyScore + "Elso rank hely"); }
+        else if (VerifyScore > 1000 && VerifyScore < 3000) { GD.Print(VerifyScore + "Masodik rank hely"); }
+        else if (VerifyScore > 3000 && VerifyScore < 5000) { GD.Print(VerifyScore + "Harmadik rank hely"); }
+        else if (VerifyScore > 5000 && VerifyScore < 7000) { GD.Print(VerifyScore + "Negyedik rank hely"); }
+        else if (VerifyScore > 7000 && VerifyScore < 10000) { GD.Print(VerifyScore + "Otodik rank hely"); }
+        else if (VerifyScore > 10000) { GD.Print(VerifyScore + "Hatodik rank hely"); }
+
+        // Szerver lekerdezes
+        string serverquery = $"SELECT * FROM servers";
+        MySqlCommand cmd = new MySqlCommand(serverquery, connection);
         reader = cmd.ExecuteReader();
         reader.Read();
-        Console.WriteLine("IP: " + reader["ip"] + " Current players: " + reader["currentplayers"] + " Max player: " + reader["maxplayer"]);
+        GD.Print("IP: " + reader["ip"] + " Current players: " + reader["currentplayers"] + " Max player: " + reader["maxplayer"]);
         reader.Close();
-        Console.ReadKey();
+        connection.Close();
     }
 }
