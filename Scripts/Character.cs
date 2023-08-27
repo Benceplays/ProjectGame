@@ -45,7 +45,7 @@ public partial class Character : CharacterBody3D
         Vector2 mouseDelta = currentMousePos - _lastMousePos;
         _lastMousePos = currentMousePos;
 
-        RotateX(-mouseDelta.Y * _sensitivity);
         RotateY(-mouseDelta.X * _sensitivity);
+        RotateX(-mouseDelta.Y * _sensitivity);
     }
 }

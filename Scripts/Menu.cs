@@ -14,11 +14,30 @@ public partial class Menu : Node2D
     double min = 0;
     string second;
     string minute;
+    private string path;
+    private ConfigFile config;
     //nodeok valtozoi
     Label timeLabel;
+
     public override void _Ready()
     {
         timeLabel = GetNode("PlayButton/TimeLabel") as Label;
+
+        path = "res://Options.cfg"; // res ha szamitogepes vagy user ha telefonra keszul
+        config = new ConfigFile();
+        config.Load(path);
+        switch ((int)config.GetValue("Game", "DisplayMode", 0))
+        {
+            case 0:
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+                break;
+            case 1:
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+                break;
+            case 2:
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
+                break;
+        }
     }
     public override void _Process(double delta)
     {
@@ -35,6 +54,8 @@ public partial class Menu : Node2D
     public void ServerSearchButton() { SearchIsOn = true; new Machmaking(); }
     public void OptionsButton() { GetTree().ChangeSceneToFile("res://Scenes/Settings.tscn"); }
 }
+
+//machmaking system
 public class Machmaking
 {
     public static int province = 0;
@@ -103,3 +124,5 @@ public class Machmaking
         connection.Close();
     }
 }
+
+//kesobb meg jo lesz OS.SetRestartOnExit(false);
