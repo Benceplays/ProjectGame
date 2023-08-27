@@ -1,0 +1,158 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpg4b8h2ansk3"]
+
+[ext_resource type="Script" path="res://Scripts/Settings.cs" id="1_cg8cq"]
+[ext_resource type="FontFile" uid="uid://4o6u2bvkhe4u" path="res://Assets/Fonts/MainFont.otf" id="2_4d5hb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jlgd"]
+bg_color = Color(1, 1, 0.0666667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_cg8cq")
+
+[node name="SettingsPanel" type="Panel" parent="."]
+offset_left = 150.0
+offset_top = 50.0
+offset_right = 1050.0
+offset_bottom = 650.0
+
+[node name="SettingsLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 325.0
+offset_top = 18.0
+offset_right = 575.0
+offset_bottom = 78.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 45
+text = "Settings"
+
+[node name="AudioLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 112.0
+offset_right = 554.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(1, 1, 0.0666667, 1)
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 35
+text = "- AUDIO -"
+
+[node name="SoundSlider" type="HSlider" parent="SettingsPanel/AudioLabel"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 45.0
+offset_right = 295.0
+offset_bottom = 106.0
+step = 10.0
+rounded = true
+
+[node name="SoundsLabel" type="Label" parent="SettingsPanel/AudioLabel/SoundSlider"]
+layout_mode = 0
+offset_left = -215.0
+offset_top = 2.0
+offset_right = -41.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 40
+text = "Sounds"
+
+[node name="SoundLabelValue" type="Label" parent="SettingsPanel/AudioLabel/SoundSlider"]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 52.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 30
+text = "0%"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPanel/AudioLabel"]
+offset_left = -3.0
+offset_top = 129.0
+offset_right = 295.0
+offset_bottom = 190.0
+step = 10.0
+
+[node name="MusicLabel" type="Label" parent="SettingsPanel/AudioLabel/MusicSlider"]
+layout_mode = 0
+offset_left = -215.0
+offset_top = 2.0
+offset_right = -41.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 40
+text = "Music"
+
+[node name="MusicLabelValue" type="Label" parent="SettingsPanel/AudioLabel/MusicSlider"]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 52.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 30
+text = "0%"
+
+[node name="GameLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 373.0
+offset_top = 314.0
+offset_right = 563.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(1, 1, 0.0666667, 1)
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 35
+text = "- Game -"
+
+[node name="DisplayModeLabel" type="Label" parent="SettingsPanel/GameLabel"]
+layout_mode = 0
+offset_left = -276.0
+offset_top = 105.0
+offset_right = -115.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 20
+text = "Display Mode"
+
+[node name="DisplayModeOption" type="OptionButton" parent="SettingsPanel/GameLabel/DisplayModeLabel"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = -7.0
+offset_right = 320.0
+offset_bottom = 33.0
+
+[node name="ResolutionLabel" type="Label" parent="SettingsPanel/GameLabel"]
+layout_mode = 0
+offset_left = -276.0
+offset_top = 159.0
+offset_right = -136.0
+offset_bottom = 188.0
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 20
+text = "Resolution"
+
+[node name="ResolutionOption" type="OptionButton" parent="SettingsPanel/GameLabel/ResolutionLabel"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = -5.0
+offset_right = 320.0
+offset_bottom = 35.0
+
+[node name="Button" type="Button" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 707.0
+offset_top = 521.0
+offset_right = 881.0
+offset_bottom = 586.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_4d5hb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_5jlgd")
+text = "Save"
+
+[connection signal="item_selected" from="SettingsPanel/GameLabel/DisplayModeLabel/DisplayModeOption" to="." method="DisplayModeSelected"]
+[connection signal="item_selected" from="SettingsPanel/GameLabel/ResolutionLabel/ResolutionOption" to="." method="ResolutionId"]
+[connection signal="pressed" from="SettingsPanel/Button" to="." method="SaveButton"]

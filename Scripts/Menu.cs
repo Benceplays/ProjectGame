@@ -33,7 +33,7 @@ public partial class Menu : Node2D
     }
     //Gombok
     public void ServerSearchButton() { SearchIsOn = true; new Machmaking(); }
-    public void OptionsButton() { GetTree().ChangeSceneToFile("res://Scenes/Options.tscn"); }
+    public void OptionsButton() { GetTree().ChangeSceneToFile("res://Scenes/Settings.tscn"); }
 }
 public class Machmaking
 {

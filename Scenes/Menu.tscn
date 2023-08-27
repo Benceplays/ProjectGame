@@ -8,10 +8,10 @@
 script = ExtResource("1_i63tl")
 
 [node name="PlayButton" type="TextureButton" parent="."]
-offset_left = 859.0
-offset_top = 487.0
-offset_right = 1135.0
-offset_bottom = 629.0
+offset_left = 911.0
+offset_top = 547.0
+offset_right = 1187.0
+offset_bottom = 689.0
 texture_normal = ExtResource("2_3qd67")
 ignore_texture_size = true
 stretch_mode = 0
@@ -35,9 +35,9 @@ offset_bottom = 129.0
 theme_override_font_sizes/font_size = 25
 
 [node name="OptionsButton" type="TextureButton" parent="."]
-offset_left = 1107.0
+offset_left = 1155.0
 offset_top = 7.0
-offset_right = 1147.0
+offset_right = 1195.0
 offset_bottom = 47.0
 texture_normal = ExtResource("2_3qd67")
 ignore_texture_size = true
