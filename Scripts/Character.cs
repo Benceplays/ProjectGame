@@ -7,12 +7,20 @@ public partial class Character : CharacterBody3D
     public const float JumpVelocity = 4.5f;
     private Vector2 _lastMousePos;
     private float _sensitivity = 0.005f;
-
-    // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
+    private const float MouseSensitivity = 0.1f;
+    private Vector2 _mouseDelta;
+
+    public override void _Input(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventMouseMotion mouseMotion)
+        {
+            _mouseDelta = mouseMotion.Relative;
+        }
+    }
     public override void _Ready()
     {
-        _lastMousePos = GetViewport().GetMousePosition();
         Input.MouseMode = Input.MouseModeEnum.ConfinedHidden;
     }
     public override void _PhysicsProcess(double delta)
@@ -41,11 +49,8 @@ public partial class Character : CharacterBody3D
         Velocity = velocity;
         MoveAndSlide();
 
-        Vector2 currentMousePos = GetViewport().GetMousePosition();
-        Vector2 mouseDelta = currentMousePos - _lastMousePos;
-        _lastMousePos = currentMousePos;
+        RotateY(-_mouseDelta.X * MouseSensitivity);
 
-        RotateY(-mouseDelta.X * _sensitivity);
-        RotateX(-mouseDelta.Y * _sensitivity);
+        _mouseDelta = Vector2.Zero;
     }
 }
