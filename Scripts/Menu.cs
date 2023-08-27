@@ -31,7 +31,9 @@ public partial class Menu : Node2D
             timeLabel.Text = $"{minute}:{second}";
         }
     }
+    //Gombok
     public void ServerSearchButton() { SearchIsOn = true; new Machmaking(); }
+    public void OptionsButton() { GetTree().ChangeSceneToFile("res://Scenes/Options.tscn"); }
 }
 public class Machmaking
 {
