@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" path="res://Scripts/Character.cs" id="1_hn0py"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_66cgm"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yws8c"]
+radius = 0.753979
+height = 2.29912
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_60qhr"]
-height = 1.98422
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ooraa"]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_hn0py")
 
-[node name="CharacterBody" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_66cgm")
-skeleton = NodePath("../..")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_60qhr")
+shape = SubResource("CapsuleShape3D_yws8c")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.926391, 0.376564, 0, -0.376564, 0.926391, 0, 2.57837, 5.30909)
+transform = Transform3D(1, 0, 0, 0, 0.848122, 0.529801, 0, -0.529801, 0.848122, 0, 2.8117, 4.67193)
 current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ooraa")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyevfihl21wsb"]
+
+[ext_resource type="PackedScene" uid="uid://dlf3jsvtxkyey" path="res://Assets/Models/Alien-Animal-Blender_2.81a_Packed.blend" id="1_qxj37"]
+
+[node name="Alien-Animal-Blender_2_81a_Packed" instance=ExtResource("1_qxj37")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Sun" parent="." index="1"]
+light_energy = 0.0
