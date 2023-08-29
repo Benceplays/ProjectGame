@@ -1,9 +1,146 @@
-[gd_scene format=3 uid="uid://bge3a0ndft0bs"]
+[gd_scene load_steps=7 format=3 uid="uid://bge3a0ndft0bs"]
+
+[ext_resource type="Texture2D" uid="uid://dbutniadu4bag" path="res://Assets/Images/AbilityIcon.png" id="1_agrm7"]
+[ext_resource type="Script" path="res://Scripts/HUD.cs" id="1_b6t00"]
+[ext_resource type="FontFile" uid="uid://4o6u2bvkhe4u" path="res://Assets/Fonts/MainFont.otf" id="2_q2vla"]
+[ext_resource type="FontFile" uid="uid://beolj2mq6pm0g" path="res://Assets/Fonts/SecondaryFont.otf" id="4_2pre7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dign"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2ea3"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_b6t00")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 21.0
-offset_top = 649.0
-offset_right = 205.0
-offset_bottom = 683.0
+[node name="AbilityIconY" type="Sprite2D" parent="."]
+position = Vector2(1147, 647)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_agrm7")
+
+[node name="AbilityIconX" type="Sprite2D" parent="."]
+position = Vector2(1042, 646)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_agrm7")
+
+[node name="AbilityIconQ" type="Sprite2D" parent="."]
+position = Vector2(937, 643)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_agrm7")
+
+[node name="AbilityIconE" type="Sprite2D" parent="."]
+position = Vector2(829, 642)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_agrm7")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = 15.0
+offset_top = 651.0
+offset_right = 416.0
+offset_bottom = 685.0
+scale = Vector2(1.00644, 1.05617)
+theme_override_styles/background = SubResource("StyleBoxFlat_4dign")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n2ea3")
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="PausePanel" type="Panel" parent="."]
+offset_left = 475.0
+offset_top = 150.0
+offset_right = 725.0
+offset_bottom = 400.0
+
+[node name="PauseLabel" type="Label" parent="PausePanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 21.0
+offset_right = 210.0
+offset_bottom = 62.0
+theme_override_fonts/font = ExtResource("2_q2vla")
+theme_override_font_sizes/font_size = 25
+text = "Pause Menu"
+
+[node name="ResumeButton" type="Button" parent="PausePanel"]
+offset_left = 25.0
+offset_top = 80.0
+offset_right = 225.0
+offset_bottom = 130.0
+theme_override_fonts/font = ExtResource("2_q2vla")
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="PausePanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 161.0
+offset_right = 225.0
+offset_bottom = 211.0
+theme_override_fonts/font = ExtResource("2_q2vla")
+theme_override_font_sizes/font_size = 30
+text = "Exit Menu"
+
+[node name="ExitPanel" type="Panel" parent="."]
+visible = false
+offset_left = 350.0
+offset_top = 150.0
+offset_right = 850.0
+offset_bottom = 400.0
+
+[node name="ExitSureLabel" type="Label" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 16.0
+offset_right = 132.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("4_2pre7")
+theme_override_font_sizes/font_size = 25
+text = "Are you sure?"
+
+[node name="ExitLabel" type="Label" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 61.0
+offset_right = 473.0
+offset_bottom = 202.0
+text = "Are you sure you want to leave the match? Leaving the game may result in penalties. Such as a temporary ban. If you have encountered a bug, write a report, and we will review the case."
+autowrap_mode = 2
+
+[node name="CancelButton" type="Button" parent="ExitPanel"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 200.0
+offset_bottom = 240.0
+theme_override_fonts/font = ExtResource("2_q2vla")
+theme_override_font_sizes/font_size = 20
+text = "Cancel"
+
+[node name="SureButton" type="Button" parent="ExitPanel"]
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 400.0
+offset_bottom = 240.0
+theme_override_fonts/font = ExtResource("2_q2vla")
+theme_override_font_sizes/font_size = 20
+text = "Sure"
+
+[connection signal="pressed" from="PausePanel/ResumeButton" to="." method="ResumeButton"]
+[connection signal="pressed" from="PausePanel/ExitButton" to="." method="ExitButton"]
+[connection signal="pressed" from="ExitPanel/CancelButton" to="." method="CancelButton"]
+[connection signal="pressed" from="ExitPanel/SureButton" to="." method="SureButton"]
