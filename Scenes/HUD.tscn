@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bge3a0ndft0bs"]
+[gd_scene load_steps=8 format=3 uid="uid://bge3a0ndft0bs"]
 
 [ext_resource type="Texture2D" uid="uid://dbutniadu4bag" path="res://Assets/Images/AbilityIcon.png" id="1_agrm7"]
 [ext_resource type="Script" path="res://Scripts/HUD.cs" id="1_b6t00"]
 [ext_resource type="FontFile" uid="uid://4o6u2bvkhe4u" path="res://Assets/Fonts/MainFont.otf" id="2_q2vla"]
 [ext_resource type="FontFile" uid="uid://beolj2mq6pm0g" path="res://Assets/Fonts/SecondaryFont.otf" id="4_2pre7"]
+[ext_resource type="StyleBox" uid="uid://gowu40xi8dyy" path="res://Assets/Resources/HUDButton.tres" id="5_m2k2x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dign"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -29,22 +30,22 @@ corner_radius_bottom_left = 5
 script = ExtResource("1_b6t00")
 
 [node name="AbilityIconY" type="Sprite2D" parent="."]
-position = Vector2(1147, 647)
+position = Vector2(1150, 650)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_agrm7")
 
 [node name="AbilityIconX" type="Sprite2D" parent="."]
-position = Vector2(1042, 646)
+position = Vector2(1040, 650)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_agrm7")
 
 [node name="AbilityIconQ" type="Sprite2D" parent="."]
-position = Vector2(937, 643)
+position = Vector2(930, 650)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_agrm7")
 
 [node name="AbilityIconE" type="Sprite2D" parent="."]
-position = Vector2(829, 642)
+position = Vector2(820, 650)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_agrm7")
 
@@ -61,6 +62,7 @@ value = 10.0
 show_percentage = false
 
 [node name="PausePanel" type="Panel" parent="."]
+visible = false
 offset_left = 475.0
 offset_top = 150.0
 offset_right = 725.0
@@ -77,6 +79,7 @@ theme_override_font_sizes/font_size = 25
 text = "Pause Menu"
 
 [node name="ResumeButton" type="Button" parent="PausePanel"]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 80.0
 offset_right = 225.0
@@ -97,6 +100,7 @@ text = "Exit Menu"
 
 [node name="ExitPanel" type="Panel" parent="."]
 visible = false
+self_modulate = Color(0, 0, 0, 1)
 offset_left = 350.0
 offset_top = 150.0
 offset_right = 850.0
@@ -129,15 +133,26 @@ offset_right = 200.0
 offset_bottom = 240.0
 theme_override_fonts/font = ExtResource("2_q2vla")
 theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_m2k2x")
+theme_override_styles/hover = ExtResource("5_m2k2x")
+theme_override_styles/pressed = ExtResource("5_m2k2x")
+theme_override_styles/disabled = ExtResource("5_m2k2x")
+theme_override_styles/focus = ExtResource("5_m2k2x")
 text = "Cancel"
 
 [node name="SureButton" type="Button" parent="ExitPanel"]
+layout_mode = 0
 offset_left = 300.0
 offset_top = 200.0
 offset_right = 400.0
 offset_bottom = 240.0
 theme_override_fonts/font = ExtResource("2_q2vla")
 theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_m2k2x")
+theme_override_styles/hover = ExtResource("5_m2k2x")
+theme_override_styles/pressed = ExtResource("5_m2k2x")
+theme_override_styles/disabled = ExtResource("5_m2k2x")
+theme_override_styles/focus = ExtResource("5_m2k2x")
 text = "Sure"
 
 [connection signal="pressed" from="PausePanel/ResumeButton" to="." method="ResumeButton"]

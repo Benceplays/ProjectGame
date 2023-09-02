@@ -11,6 +11,7 @@ public partial class Character : CharacterBody3D
 
     private const float MouseSensitivity = 0.1f;
     private Vector2 _mouseDelta;
+    private AllVariables allVariables;
 
     public override void _Input(InputEvent inputEvent)
     {
@@ -22,6 +23,7 @@ public partial class Character : CharacterBody3D
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.ConfinedHidden;
+        allVariables = new AllVariables();
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -48,8 +50,7 @@ public partial class Character : CharacterBody3D
 
         Velocity = velocity;
         MoveAndSlide();
-
-        RotateY(-_mouseDelta.X * MouseSensitivity);
+        if (!allVariables.pausemenuon) { RotateY(-_mouseDelta.X * MouseSensitivity); }
 
         _mouseDelta = Vector2.Zero;
     }
